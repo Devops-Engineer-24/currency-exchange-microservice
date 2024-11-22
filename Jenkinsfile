@@ -1,10 +1,12 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_HOME = 'mydocker' // Replace with your actual Docker path if needed
-        MAVEN_HOME = 'mymaven' // Replace with the actual Maven installation path
-        PATH = "${DOCKER_HOME}:${MAVEN_HOME}/bin:${env.PATH}"
+     environment {
+        MAVEN_HOME = tool 'mymaven' // Use the name configured in Jenkins
+        PATH = "${MAVEN_HOME}/bin:${env.PATH}"
+		DOCKER_HOME = tool 'mydocker' // Use the name configured in Jenkins
+        PATH = "${DOCKER_HOME}/bin:${env.PATH}"
+
     }
 
     stages {
