@@ -31,18 +31,30 @@ pipeline {
 
         stage('Integration Test') {
             steps {
-                echo 'Integration Stage'
-                // Handle potential failures for integration tests gracefully
+                echo 'Integration Test Stage'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
                     sh 'mvn failsafe:integration-test failsafe:verify'
                 }
             }
         }
 
-        stage('Package') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Package Stage'
-                sh 'mvn Package'
+                script {
+                    def imageName = "mayur24/azure-pipeline:${env.BUILD_TAG}"
+                    docker.build(imageName)
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    def imageName = "mayur24/azure-pipeline:${env.BUILD_TAG}"
+                    withDockerRegistry(credentialsId: 'your-docker-credentials-id') { // Replace with actual credentials ID
+                        docker.image(imageName).push()
+                    }
+                }
             }
         }
     }
