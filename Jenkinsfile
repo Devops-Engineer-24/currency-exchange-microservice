@@ -5,28 +5,25 @@
       		stage ('Build') {
 				steps {
 					echo "Build"
-					echo  "Test"
-					echo  "Test"
 				}
 			}
-	}
+	
 			stages {
-      		stage ('Test') {
-				steps {
-					echo "Build"
-					echo  "Test"
-					echo  "Test"
+      			stage ('Test') {
+					steps {
+						echo "Build"
+
 				}
 			}
-	}
+	
 		stages {
       		stage ('Integration') {
 				steps {
 					echo "Build"
-					echo  "Test"
-					echo  "Test"
+				
 				}
 			}
-	}
-
-}
+	    }
+    } 
+ 
+ }} 
