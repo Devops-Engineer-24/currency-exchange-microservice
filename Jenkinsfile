@@ -29,16 +29,6 @@ pipeline {
             }
         }
 
-#        stage('Test') {
-#          steps {
-#               echo 'Test Stage'
-#                // Use catchError to allow pipeline continuation despite test failures
-#               catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-#                   sh 'mvn test'
-#                }
-#           }
- #       }
-
         stage('Integration Test') {
             steps {
                 echo 'Integration Stage'
