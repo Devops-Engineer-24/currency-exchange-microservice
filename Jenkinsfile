@@ -1,13 +1,10 @@
 pipeline {
     agent any
-
      environment {
         MAVEN_HOME = tool 'mymaven' // Use the name configured in Jenkins
-		DOCKER_HOME = tool 'mydocker' // Use the name configured in Jenkins
+	DOCKER_HOME = tool 'mydocker' // Use the name configured in Jenkins
         PATH = "${DOCKER_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
-
     }
-
     stages {
         stage('Checkout') {
             steps {
@@ -26,34 +23,34 @@ pipeline {
             steps {
                 echo 'Compile Stage'
                 // Add your Compile commands here
-				sh 'mvn clean compile'
+		sh 'mvn clean compile'
             }
         }
         stage('Test') {
             steps {
                 echo 'Test Stage'
                 // Add your integration commands here
-				catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-				sh 'mvn test'
-				}
+		catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') 
+		{
+		sh 'mvn test'
+		}
 				
             }
         }
-		stage('Integration Test') {
+	stage('Integration Test') {
             steps {
                 echo 'Integration Stage'
                 // Add your integration commands here
-				sh 'mvn failsafe:integration-test failsafe:verify'
+		sh 'mvn failsafe:integration-test failsafe:verify'
             }
         }
     }
-
-    post {
-        always {
-            echo 'Post-build: Always runs'
+      post {
+         always {
+             echo 'Post-build: Always runs'
         }
-        success {
-            echo 'Post-build: Build Successful'
+         success {
+             echo 'Post-build: Build Successful'
         }
         failure {
             echo 'Post-build: Build Failed'
