@@ -1,37 +1,42 @@
+/* groovylint-disable CompileStatic, DuplicateStringLiteral */
 pipeline {
-    agent { docker { image 'maven:3.9.9-ibm-semeru-23-jammy' } }
+    agent any
 
     stages {
         stage('Build') {
             steps {
-                echo "Build"
+                echo 'Build'
                 // Run Maven version to check if Maven is working
                 sh 'mvn --version'
+				echo "Builld"
+				echo "Build_Number - $env.Build_Number"
+				echo "$env.Build_id"
+
             }
         }
         stage('Test') {
             steps {
-                echo "Test"
-                // Add your test logic here
+                echo 'Test'
+            // Add your test logic here
             }
         }
         stage('Integration') {
             steps {
-                echo "Integration"
-                // Add your integration logic here
+                echo 'Integration'
+            // Add your integration logic here
             }
         }
     }
 
     post {
         always {
-            echo "I am Devops"
+            echo 'I am Devops'
         }
         success {
-            echo "I Devops E2"
+            echo 'I Devops E2'
         }
         failure {
-            echo "I am Not Devops"
+            echo 'I am Not Devops'
         }
     }
 }
