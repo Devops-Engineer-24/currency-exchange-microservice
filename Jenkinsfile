@@ -38,6 +38,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Package') {
+            steps {
+                echo 'Package Stage'
+                sh 'mvn Package'
+            }
+        }
     }
 
     post {
