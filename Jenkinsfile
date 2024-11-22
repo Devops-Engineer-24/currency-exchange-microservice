@@ -18,4 +18,16 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            echo "I am Devops"
+        }
+        success {
+            echo "I Devops E2"
+        }
+        failure {
+            echo "I am Not Devops"
+        }
+    }
 }
