@@ -22,16 +22,25 @@ pipeline {
                 echo "Build URL: ${env.BUILD_URL}"
             }
         }
-        stage('Build') {
+        stage('Compile') {
             steps {
-                echo 'Build Stage'
-                // Add your build commands here
+                echo 'Compile Stage'
+                // Add your Compile commands here
+				sh 'mvn clean compile'
             }
         }
-        stage('Integration') {
+        stage('Test') {
+            steps {
+                echo 'Test Stage'
+                // Add your integration commands here
+				sh 'mvn test'
+            }
+        }
+		stage('Integration Test') {
             steps {
                 echo 'Integration Stage'
                 // Add your integration commands here
+				sh 'mvn failsafe:integration-test failsafe:verify'
             }
         }
     }
