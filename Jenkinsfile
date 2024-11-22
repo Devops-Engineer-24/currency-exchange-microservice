@@ -1,49 +1,52 @@
 /* groovylint-disable CompileStatic, DuplicateStringLiteral */
 pipeline {
     agent any
-	environment
-		dockerHome = tool 'mydocker'
-		mavenHome = tool 'mymaven'
-		PATH = "$dockerHome/bin:$mavenHome/bin/$PATH"
+
+    environment {
+        DOCKER_HOME = tool 'mydocker'
+        MAVEN_HOME = tool 'mymaven'
+        PATH = "${DOCKER_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
+    }
+
     stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checkout'
+                // Run Maven and Docker version to verify tools
+                sh 'mvn --version'
+                sh 'docker --version'
+                
+                // Print environment variables
+                echo "Build Number: ${env.BUILD_NUMBER}"
+                echo "Build ID: ${env.BUILD_ID}"
+                echo "Job Name: ${env.JOB_NAME}"
+                echo "Build Tag: ${env.BUILD_TAG}"
+                echo "Build URL: ${env.BUILD_URL}"
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Build'
-                // Run Maven version to check if Maven is working
-				sh 'mvn --version'
-				sh 'docker --version'
-				echo "$env.BUILD_NUMBER"
-				echo "$env.BUILD_id"
-				echo "$env.JOB_NAME"
-				echo "$env.BUILD_TAG"
-				echo "$env.BUILD_URL"
-
-
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Test'
-            // Add your test logic here
+                // Add your build logic here
             }
         }
         stage('Integration') {
             steps {
                 echo 'Integration'
-            // Add your integration logic here
+                // Add your integration logic here
             }
         }
     }
 
     post {
         always {
-            echo ' Devops Traing '
+            echo 'DevOps Training Completed'
         }
         success {
-            echo 'I Devops Traing 2'
+            echo 'Build failed "Success!"'
         }
         failure {
-            echo 'I am Not Devops'
+            echo 'Build failed. Debug and try again.'
         }
     }
 }
