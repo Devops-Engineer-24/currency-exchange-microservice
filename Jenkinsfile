@@ -9,9 +9,10 @@ pipeline {
                 // Run Maven version to check if Maven is working
 				echo "Build"
 				echo "BUILD.TAG_NUMBER - $env.BUILD_NUMBER"
-				echo "$env.Build_id"
+				echo "$env.BUILD_id"
 				echo "$env.JOB_NAME"
-				echo "$env.BUILLD.TAG"
+				echo "$env.BUILD.TAG"
+				echo "$env.BUILD.URL"
 
 
             }
