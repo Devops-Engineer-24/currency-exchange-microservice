@@ -3,9 +3,8 @@ pipeline {
 
      environment {
         MAVEN_HOME = tool 'mymaven' // Use the name configured in Jenkins
-        PATH = "${MAVEN_HOME}/bin:${env.PATH}"
 		DOCKER_HOME = tool 'mydocker' // Use the name configured in Jenkins
-        PATH = "${DOCKER_HOME}/bin:${env.PATH}"
+        PATH = "${DOCKER_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
 
     }
 
