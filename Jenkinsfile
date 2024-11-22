@@ -11,8 +11,8 @@ pipeline {
 				echo "BUILD.TAG_NUMBER - $env.BUILD_NUMBER"
 				echo "$env.BUILD_id"
 				echo "$env.JOB_NAME"
-				echo "$env.BUILD.TAG"
-				echo "$env.BUILD.URL"
+				echo "$env.BUILD_TAG"
+				echo "$env.BUILD_URL"
 
 
             }
@@ -33,7 +33,7 @@ pipeline {
 
     post {
         always {
-            echo 'I am Devops'
+            echo ' am Devops'
         }
         success {
             echo 'I Devops E2'
