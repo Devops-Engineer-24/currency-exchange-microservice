@@ -7,7 +7,6 @@ pipeline {
             steps {
                 echo 'Build'
                 // Run Maven version to check if Maven is working
-                sh 'mvn --version'
 				echo "Builld"
 				echo "BUIILD_NUMBER - $env.BUIILD_NUMBER"
 				echo "$env.Build_id"
