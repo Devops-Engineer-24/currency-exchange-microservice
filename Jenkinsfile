@@ -1,14 +1,18 @@
 /* groovylint-disable CompileStatic, DuplicateStringLiteral */
 pipeline {
     agent any
-
+	environment
+		dockerHome = tool 'mydocker'
+		mavenHome = tool 'mymaven'
+		PATH = "$dockerHome/bin:$mavenHome/bin/$PATH"
     stages {
         stage('Build') {
             steps {
                 echo 'Build'
                 // Run Maven version to check if Maven is working
-				echo "Build"
-				echo "BUILD.TAG_NUMBER - $env.BUILD_NUMBER"
+				sh 'mvn --version'
+				sh 'docker --version'
+				echo "$env.BUILD_NUMBER"
 				echo "$env.BUILD_id"
 				echo "$env.JOB_NAME"
 				echo "$env.BUILD_TAG"
@@ -33,10 +37,10 @@ pipeline {
 
     post {
         always {
-            echo ' am Devops'
+            echo ' Devops Traing '
         }
         success {
-            echo 'I Devops E2'
+            echo 'I Devops Traing 2'
         }
         failure {
             echo 'I am Not Devops'
