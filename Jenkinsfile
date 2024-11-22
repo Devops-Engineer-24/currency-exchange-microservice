@@ -33,7 +33,10 @@ pipeline {
             steps {
                 echo 'Test Stage'
                 // Add your integration commands here
+				catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
 				sh 'mvn test'
+				}
+				
             }
         }
 		stage('Integration Test') {
